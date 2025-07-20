@@ -1,0 +1,71 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Login</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          class="form-input"
+          placeholder="Enter email"
+          formControlName="email"
+          [class.error]="isSubmitted && formControls['email'].errors"
+        />
+        <div *ngIf="isSubmitted && formControls['email'].errors" class="error-message">
+          <span *ngIf="formControls['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="formControls['email'].errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password:</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          class="form-input"
+          placeholder="Enter password"
+          formControlName="password"
+          [class.error]="isSubmitted && formControls['password'].errors"
+        />
+        <div *ngIf="isSubmitted && formControls['password'].errors" class="error-message">
+          <span *ngIf="formControls['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="formControls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <!-- Show Password Checkbox -->
+      <div class="checkbox-group">
+        <input
+          type="checkbox"
+          id="showPassword"
+          (change)="togglePasswordVisibility()"
+          [checked]="showPassword"
+        />
+        <label for="showPassword" class="checkbox-label">Show Password</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="signin-button">
+        SIGN IN
+      </button>
+    </form>
+
+    <!-- Footer Links -->
+    <div class="footer-links">
+      <p>
+        Forgot 
+        <button  class="link" (click)="onForgotPassword()">Username / Password</button>?
+      </p>
+      <p>
+        Don't have an account? 
+        <button class="link" (click)="onSignUp()">Sign up</button>
+      </p>
+    </div>
+  </div>
+</div>
+
+

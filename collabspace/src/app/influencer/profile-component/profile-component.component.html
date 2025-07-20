@@ -1,0 +1,105 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>Influencer Profile</h2>
+    <button 
+      class="btn btn-primary" 
+      (click)="toggleEdit()"
+      *ngIf="!isEditing">
+      Edit Profile
+    </button>
+    <div *ngIf="isEditing" class="edit-buttons">
+      <button class="btn btn-success" (click)="saveProfile()">Save</button>
+      <button class="btn btn-secondary" (click)="toggleEdit()">Cancel</button>
+    </div>
+  </div>
+
+  <form [formGroup]="profileForm" class="profile-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="fullName"
+          [readonly]="!isEditing">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          formControlName="email"
+          [readonly]="!isEditing">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Phone</label>
+        <input 
+          type="tel" 
+          class="form-control" 
+          formControlName="phone"
+          [readonly]="!isEditing">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select class="form-control" formControlName="category" [disabled]="!isEditing">
+          <option value="">Select Category</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Lifestyle">Lifestyle</option>
+          <option value="Tech">Technology</option>
+          <option value="Food">Food & Cooking</option>
+          <option value="Travel">Travel</option>
+          <option value="Fitness">Fitness</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea 
+        class="form-control" 
+        rows="4" 
+        formControlName="bio"
+        [readonly]="!isEditing"
+        maxlength="500">
+      </textarea>
+    </div>
+
+    <div class="social-media-section" formGroupName="socialMedia">
+      <h4>Social Media</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Instagram</label>
+          <input type="text" class="form-control" formControlName="instagram" [readonly]="!isEditing">
+        </div>
+        <div class="form-group">
+          <label>YouTube</label>
+          <input type="text" class="form-control" formControlName="youtube" [readonly]="!isEditing">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>TikTok</label>
+          <input type="text" class="form-control" formControlName="tiktok" [readonly]="!isEditing">
+        </div>
+        <div class="form-group">
+          <label>Twitter</label>
+          <input type="text" class="form-control" formControlName="twitter" [readonly]="!isEditing">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" class="form-control" formControlName="location" [readonly]="!isEditing">
+      </div>
+      <div class="form-group">
+        <label>Total Followers</label>
+        <input type="number" class="form-control" formControlName="followers" [readonly]="!isEditing">
+      </div>
+    </div>
+  </form>
+</div>

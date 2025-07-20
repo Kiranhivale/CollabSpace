@@ -1,0 +1,101 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2 class="register-title">Register</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Full Name Field -->
+      <div class="form-group">
+        <label for="fullName" class="form-label">Full Name:</label>
+        <input
+          type="text"
+          id="fullName"
+          class="form-input"
+          placeholder="Enter full name"
+          formControlName="fullName"
+          [class.error]="isSubmitted && formControls['fullName'].errors"
+        />
+        <div *ngIf="isSubmitted && formControls['fullName'].errors" class="error-message">
+          <span *ngIf="formControls['fullName'].errors?.['required']">Full name is required</span>
+          <span *ngIf="formControls['fullName'].errors?.['minlength']">Full name must be at least 2 characters</span>
+        </div>
+      </div>
+
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username" class="form-label">Username:</label>
+        <input
+          type="text"
+          id="username"
+          class="form-input"
+          placeholder="Enter username"
+          formControlName="username"
+          [class.error]="isSubmitted && formControls['username'].errors"
+        />
+        <div *ngIf="isSubmitted && formControls['username'].errors" class="error-message">
+          <span *ngIf="formControls['username'].errors?.['required']">Username is required</span>
+          <span *ngIf="formControls['username'].errors?.['minlength']">Username must be at least 3 characters</span>
+          <span *ngIf="formControls['username'].errors?.['pattern']">Username can only contain letters, numbers, and underscores</span>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          class="form-input"
+          placeholder="Enter email"
+          formControlName="email"
+          [class.error]="isSubmitted && formControls['email'].errors"
+        />
+        <div *ngIf="isSubmitted && formControls['email'].errors" class="error-message">
+          <span *ngIf="formControls['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="formControls['email'].errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password:</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          class="form-input"
+          placeholder="Enter password"
+          formControlName="password"
+          [class.error]="isSubmitted && formControls['password'].errors"
+        />
+        <div *ngIf="isSubmitted && formControls['password'].errors" class="error-message">
+          <span *ngIf="formControls['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="formControls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+          <span *ngIf="formControls['password'].errors?.['passwordStrength']">Password must contain uppercase, lowercase, and number</span>
+        </div>
+      </div>
+
+      <!-- Show Password Checkbox -->
+      <div class="checkbox-group">
+        <input
+          type="checkbox"
+          id="showPassword"
+          (change)="togglePasswordVisibility()"
+          [checked]="showPassword"
+        />
+        <label for="showPassword" class="checkbox-label">Show Password</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="register-button">
+        REGISTER
+      </button>
+    </form>
+
+    <!-- Footer Links -->
+    <div class="footer-links">
+      <p>
+        Already have an account? 
+        <button  class="link" (click)="onLogin($event)">Sign in</button>
+      </p>
+    </div>
+  </div>
+</div>

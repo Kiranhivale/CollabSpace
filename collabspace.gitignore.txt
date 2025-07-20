@@ -1,0 +1,16 @@
+# Angular
+node_modules/
+dist/
+.env
+
+# .NET API
+bin/
+obj/
+*.user
+*.vs/
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Others
+*.log
