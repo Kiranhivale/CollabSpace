@@ -1,8 +1,9 @@
 <div class="register-container">
   <div class="register-card">
     <h2 class="register-title">Register</h2>
-    
+
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
       <!-- Full Name Field -->
       <div class="form-group">
         <label for="fullName" class="form-label">Full Name:</label>
@@ -34,7 +35,7 @@
         <div *ngIf="isSubmitted && formControls['username'].errors" class="error-message">
           <span *ngIf="formControls['username'].errors?.['required']">Username is required</span>
           <span *ngIf="formControls['username'].errors?.['minlength']">Username must be at least 3 characters</span>
-          <span *ngIf="formControls['username'].errors?.['pattern']">Username can only contain letters, numbers, and underscores</span>
+          <span *ngIf="formControls['username'].errors?.['pattern']">Only letters, numbers, and underscores allowed</span>
         </div>
       </div>
 
@@ -51,7 +52,7 @@
         />
         <div *ngIf="isSubmitted && formControls['email'].errors" class="error-message">
           <span *ngIf="formControls['email'].errors?.['required']">Email is required</span>
-          <span *ngIf="formControls['email'].errors?.['email']">Please enter a valid email</span>
+          <span *ngIf="formControls['email'].errors?.['email']">Enter a valid email</span>
         </div>
       </div>
 
@@ -68,21 +69,36 @@
         />
         <div *ngIf="isSubmitted && formControls['password'].errors" class="error-message">
           <span *ngIf="formControls['password'].errors?.['required']">Password is required</span>
-          <span *ngIf="formControls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
-          <span *ngIf="formControls['password'].errors?.['passwordStrength']">Password must contain uppercase, lowercase, and number</span>
+          <span *ngIf="formControls['password'].errors?.['minlength']">Minimum 6 characters</span>
+          <span *ngIf="formControls['password'].errors?.['passwordStrength']">Must contain uppercase, lowercase, and number</span>
         </div>
       </div>
 
       <!-- Show Password Checkbox -->
       <div class="checkbox-group">
-        <input
-          type="checkbox"
-          id="showPassword"
-          (change)="togglePasswordVisibility()"
-          [checked]="showPassword"
-        />
+        <input type="checkbox" id="showPassword" (change)="togglePasswordVisibility()" [checked]="showPassword" />
         <label for="showPassword" class="checkbox-label">Show Password</label>
       </div>
+
+      <!-- Role Selection -->
+      <!-- Only Influencer and Company roles are visible -->
+<div class="form-group">
+  <label for="role" class="form-label">Select Role:</label>
+  <select
+    id="role"
+    class="form-input"
+    formControlName="role"
+    [class.error]="isSubmitted && formControls['role'].errors"
+  >
+    <option value="">-- Choose Role --</option>
+    <option value="influencer">Influencer</option>
+    <option value="company">Company</option>
+  </select>
+  <div *ngIf="isSubmitted && formControls['role'].errors" class="error-message">
+    <span *ngIf="formControls['role'].errors?.['required']">Role is required</span>
+  </div>
+</div>
+
 
       <!-- Submit Button -->
       <button type="submit" class="register-button">
@@ -93,8 +109,8 @@
     <!-- Footer Links -->
     <div class="footer-links">
       <p>
-        Already have an account? 
-        <button  class="link" (click)="onLogin($event)">Sign in</button>
+        Already have an account?
+        <button class="link" (click)="onLogin($event)">Sign in</button>
       </p>
     </div>
   </div>

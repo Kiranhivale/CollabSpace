@@ -2,18 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit  {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword = false;
   isSubmitted = false;
-  loginError = ''; // Reset error
+  loginError = '';
 
-  constructor(private formBuilder: FormBuilder,private router:Router,private auth: AuthService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private auth: AuthService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -32,27 +33,42 @@ export class LoginComponent implements OnInit  {
 
   onSubmit(): void {
     this.isSubmitted = true;
-    debugger
+
     if (this.loginForm.valid) {
       const loginData = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
-      var username=loginData.email
-      var password  =loginData.password
-      console.log('Login data:', loginData);
-      // Here you would typically call your authentication service
-      // this.authService.login(loginData).subscribe(...)
-       this.auth.login({ username, password }).subscribe({
-      next: res => {
-        localStorage.setItem('token', res.token);
-        // navigate or update UI
-      },
-      error: err => {
-        console.error('Login failed', err);
-      }
-    });
-      alert('Login form submitted successfully!');
+
+      const username = loginData.email;
+      const password = loginData.password;
+
+      this.auth.login({ username, password }).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('role', res.role);
+
+          // Role-based redirection
+          switch (res.role) {
+            case 'admin':
+              this.router.navigate(['/dashboard']);
+              break;
+            case 'influencer':
+              this.router.navigate(['/campaign']);
+              break;
+            case 'company':
+              this.router.navigate(['/upload-campaign']);
+              break;
+            default:
+              this.router.navigate(['/']);
+              break;
+          }
+        },
+        error: err => {
+          console.error('Login failed', err);
+          this.loginError = 'Invalid credentials';
+        }
+      });
     } else {
       console.log('Form is invalid');
     }
@@ -60,11 +76,10 @@ export class LoginComponent implements OnInit  {
 
   onForgotPassword(): void {
     console.log('Forgot password clicked');
-    // Navigate to forgot password page
+    // Navigate or open modal
   }
 
   onSignUp(): void {
-    console.log('Sign up clicked');
-   this.router.navigate(['/register']);
+    this.router.navigate(['/register']);
   }
 }

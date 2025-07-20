@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49df4dfdf80f64a5635746ea4bf00e307e6da3e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
